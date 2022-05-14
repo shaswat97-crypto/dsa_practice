@@ -50,6 +50,57 @@ class BinarySearchTree{
             }
         }
     }
+    bfs(){
+        let node = this.root;
+        let visited = [this.root.value];
+        let queue = [this.root];
+        while(queue.length){
+            node = queue.shift();
+            if(node.left){
+                queue.push(node.left);
+                visited.push(node.left.value)
+            }
+            if(node.right) {
+                queue.push(node.right);
+                visited.push(node.right.value);
+            }
+        }
+        return visited;
+    }
+    dfs_preorder(){
+        let visited = [];
+        let node = this.root;
+        function traverse(node){
+            visited.push(node.value);
+            if(node.left) traverse(node.left);
+            if(node.right) traverse(node.right);
+            return;
+        }
+        traverse(node);
+        return visited;
+    }
+    dfs_postorder(){
+        let visited = [];
+        let node = this.root;
+        function traverse(node){
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+            visited.push(node.value);
+        }
+        traverse(node);
+        return visited;
+    }
+    dfs_inorder(){
+        let visited = [];
+        let node = this.root;
+        function traverse(node){
+            if (node.left) traverse(node.left);
+            visited.push(node.value);
+            if (node.right) traverse(node.right);
+        }
+        traverse(node);
+        return visited;
+    }
 }
 
 let bst = new BinarySearchTree;
@@ -62,4 +113,4 @@ bst.insert(3);
 bst.insert(11);
 bst.insert(13);
 bst.insert(4);
-bst.search(29);
+//bst.search(29);
