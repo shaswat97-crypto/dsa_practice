@@ -1,19 +1,26 @@
 class heap{
     constructor(){
-        let values = [];
+        this.values = [];
     }
     insert(val){
-        values.push(val);
-        let parent = values[Math.floor((indexof(val)-1)/2)];
-        if(val> parent){
-            swap(indexof(val), indexof(parent), values);
+        // typeof(heap.values);
+        this.values.push(val);
+        let parent = this.values[Math.abs(Math.floor((this.values.indexOf(val)-1)/2))];
+        while(val> parent){
+            this.swap(this.values.indexOf(val), this.values.indexOf(parent), this.values);
+            if(Math.floor((this.values.indexOf(val)-1)/2)>0){
+                parent = this.values[Math.abs(Math.floor((this.values.indexOf(val)-1)/2))];
+            }else{
+                parent = this.values[0];
+            }
         }
-        function swap(a, b, arr){
+        return this.values;
+    }
+    swap(a, b, arr){
             let temp = arr[a];
             arr[a] = arr[b];
             arr[b] = temp;
         }
-    }
     remove(){
         let retMax = this.values[0];
         if(!this.values.length) return null;
@@ -33,3 +40,15 @@ class heap{
         }
     }
 }
+let h = new heap;
+h.insert(10);
+h.insert(20);
+h.insert(30);
+h.insert(40);
+h.insert(50);
+h.insert(60);
+h.insert(70);
+h.insert(1);
+h.remove();
+
+//  60 40 50 10 30 20 1
