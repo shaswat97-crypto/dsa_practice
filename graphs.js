@@ -11,18 +11,37 @@ class graph{
     }
     removeEdge(vert1, vert2){
         let newArr = [],
-            index = this.adjanceyList[vert1].indexOf(vert2);
-        //console.log(this.adjanceyList[vert1].length);
-        if(index == 0) this.adjanceyList[vert1].unshift();
-        else if(index== this.adjanceyList[vert1].length-1) this.adjanceyList[vert1].pop();
+            newArr_2 = [],
+            idx2 = this.adjanceyList[vert1].indexOf(vert2),
+            idx1 = this.adjanceyList[vert2].indexOf(vert1);
+        //removing from vertex1
+        if(idx2 == 0) this.adjanceyList[vert1].unshift();
+        else if(idx2== this.adjanceyList[vert1].length-1) this.adjanceyList[vert1].pop();
         else{
-            newArr = this.adjanceyList[vert1].slice(0, index);
-            for(let i = index+1; i<this.adjanceyList[vert1]; i++){
+            newArr = this.adjanceyList[vert1].slice(0, idx2);
+            for(let i = idx2+1; i<this.adjanceyList[vert1]; i++){
                 newArr.push(this.adjanceyList[vert1][i])
             }
             this.adjanceyList[vert1] = newArr;
         }
-        //repeat same to remove from vert2
+        //removing from vertex2
+        if(idx1 == 0) this.adjanceyList[vert2].unshift();
+        else if(idx2== this.adjanceyList[vert2].length-1 || this.adjanceyList[vert2].length) this.adjanceyList[vert2].pop();
+        else{
+            newArr_2 = this.adjanceyList[vert2].slice(0, idx1);
+            for(let i = idx1+1; i<this.adjanceyList[vert2]; i++){
+                newArr_2.push(this.adjanceyList[vert2][i])
+            }
+            this.adjanceyList[vert2] = newArr_2;
+        }
+        return this.adjanceyList;
+    }
+    removeVertex(vertex){
+        let count = this.adjanceyList[vertex].length,
+        copyArr = this.adjanceyList[vertex];
+        for(let i = 0; i<count; i++){
+            this.removeEdge(vertex, copyArr[i]);
+        }
     }
 }
 let g = new graph;
@@ -33,4 +52,7 @@ g.addVertex("maldives");
 g.addEdge("tokyo", "singapore");
 g.addEdge("tokyo", "maldives");
 g.addEdge("tokyo", "china");
-g.removeEdge("tokyo", "china");
+g.addEdge("singapore", "maldives");
+g.addEdge("maldives", "china");
+//g.removeEdge("tokyo", "china");
+g.removeVertex('tokyo')
