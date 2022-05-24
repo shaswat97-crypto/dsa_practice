@@ -19,7 +19,7 @@ class graph{
         else if(idx2== this.adjanceyList[vert1].length-1) this.adjanceyList[vert1].pop();
         else{
             newArr = this.adjanceyList[vert1].slice(0, idx2);
-            for(let i = idx2+1; i<this.adjanceyList[vert1]; i++){
+            for(let i = idx2+1; i<this.adjanceyList[vert1].length; i++){
                 newArr.push(this.adjanceyList[vert1][i])
             }
             this.adjanceyList[vert1] = newArr;
@@ -29,7 +29,7 @@ class graph{
         else if(idx2== this.adjanceyList[vert2].length-1 || this.adjanceyList[vert2].length) this.adjanceyList[vert2].pop();
         else{
             newArr_2 = this.adjanceyList[vert2].slice(0, idx1);
-            for(let i = idx1+1; i<this.adjanceyList[vert2]; i++){
+            for(let i = idx1+1; i<this.adjanceyList[vert2].length; i++){
                 newArr_2.push(this.adjanceyList[vert2][i])
             }
             this.adjanceyList[vert2] = newArr_2;
