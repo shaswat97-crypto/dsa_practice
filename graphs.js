@@ -15,7 +15,7 @@ class graph{
             idx2 = this.adjanceyList[vert1].indexOf(vert2),
             idx1 = this.adjanceyList[vert2].indexOf(vert1);
         //removing from vertex1
-        if(idx2 == 0) this.adjanceyList[vert1].unshift();
+        if(idx2 == 0) this.adjanceyList[vert1].shift();
         else if(idx2== this.adjanceyList[vert1].length-1) this.adjanceyList[vert1].pop();
         else{
             newArr = this.adjanceyList[vert1].slice(0, idx2);
@@ -25,7 +25,7 @@ class graph{
             this.adjanceyList[vert1] = newArr;
         }
         //removing from vertex2
-        if(idx1 == 0) this.adjanceyList[vert2].unshift();
+        if(idx1 == 0) this.adjanceyList[vert2].shift();
         else if(idx2== this.adjanceyList[vert2].length-1 || this.adjanceyList[vert2].length) this.adjanceyList[vert2].pop();
         else{
             newArr_2 = this.adjanceyList[vert2].slice(0, idx1);
@@ -38,9 +38,37 @@ class graph{
     }
     removeVertex(vertex){
         let count = this.adjanceyList[vertex].length,
-        copyArr = this.adjanceyList[vertex];
+        copyArr = [...this.adjanceyList[vertex]];
         for(let i = 0; i<count; i++){
             this.removeEdge(vertex, copyArr[i]);
+        }
+        delete this.adjanceyList[vertex];
+    }
+    //dfs traversal
+    /*
+    graph view
+    {
+        a: ['b', 'c'],
+        b: [a, d, e],
+        c: [a],
+        d: [b],
+        e: [b]
+    }
+    */
+    dfs(start){
+        let register = {},
+            i = this.adjanceyList[start].length,
+            visitorAddress = this.adjanceyList[start],
+            visitedNode = this.adjanceyList[start][0];
+        register[visitedNode] = true;
+        function dfs_helper(){
+            if(!register[start]){
+                start = visitedNode;
+            }else if(register[start]){
+                i++;
+
+            }
+
         }
     }
 }
@@ -56,3 +84,4 @@ g.addEdge("singapore", "maldives");
 g.addEdge("maldives", "china");
 //g.removeEdge("tokyo", "china");
 g.removeVertex('tokyo')
+//g.removeEdge('tokyo', 'singapore')
